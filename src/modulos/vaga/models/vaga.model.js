@@ -13,6 +13,7 @@ const VagaEstacionamento = sequelize.define(
     vaga_numero: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true, 
       validate: {
         min: 1,
       },
@@ -22,23 +23,29 @@ const VagaEstacionamento = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
-    veiculo_placa: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        is: {
-          args: /^[A-Z]{3}-\d{4}$/i,
-          msg: "A placa deve estar no formato ABC-1234",
-        },
+    veiculoId: {
+      type: DataTypes.INTEGER,
+      allowNull: true, // Nulo se vaga estiver livre
+      references: {
+        model: "veiculos", //tabela de veículos
+        key: "id",
       },
     },
     horario_entrada: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
       allowNull: true,
+      
     },
     horario_saida: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
       allowNull: true,
+      validate: {
+        isAfterEntrada(value) {
+          if (value && this.horario_entrada && value < this.horario_entrada) {
+            throw new Error("A saída deve ser após a entrada.");
+          }
+        },
+      },
     },
   },
   {

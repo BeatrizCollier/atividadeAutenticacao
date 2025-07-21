@@ -1,13 +1,24 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../../config/configDB");
 
-const Usuario = sequelize.define(
-  "Usuario",
+const Operador = sequelize.define(
+  "Operador",
   {
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    papel: {
+      type: DataTypes.ENUM('operador', 'cliente'),
+      allowNull: false,
+      validate:{
+        isIn:{
+          args:[["operador", "cliente"]],
+          msg:"O papel deve ser operador."
+        },
+      },
+    },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,10 +39,10 @@ const Usuario = sequelize.define(
     },
   },
   {
-    tableName: "usuario",
+    tableName: "operador",
     createdAt: "criado_em",
     updatedAt: "atualizado_em",
   }
 );
 
-module.exports = Usuario;
+module.exports = Operador;

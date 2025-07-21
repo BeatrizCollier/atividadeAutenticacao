@@ -9,12 +9,12 @@ class AutenticacaoMiddleware {
       return res.status(401).json({ msg: "Token de acesso não fornecido!" });
     }
 
-    jwt.verify(token, process.env.SECRET_KEY, (err, usuario) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, operador) => {
       if (err) {
         return res.status(403).json({ msg: "Token de acesso não fornecido!" });
       }
 
-      req.usuario = usuario; 
+      req.operador = operador; 
       next();
     });
   }
