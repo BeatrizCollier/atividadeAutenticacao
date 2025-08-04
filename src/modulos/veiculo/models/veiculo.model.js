@@ -42,7 +42,7 @@ const Veiculo = sequelize.define(
     },
   },
   {
-    tableName: "veiculos",
+    tableName: "veiculo",
     createdAt: "criado_em",
     updatedAt: "atualizado_em",
   }

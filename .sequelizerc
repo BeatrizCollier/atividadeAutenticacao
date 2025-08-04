@@ -1,0 +1,7 @@
+const path = require('path');
+module.exports = {
+ 'config': path.resolve('src', 'config', 'configMigration.js'), // Mudança: usar .js em vez de .json
+ 'models-path': path.resolve('src', 'modulos'),
+ 'seeders-path': path.resolve('src', 'database', 'seeders'),
+ 'migrations-path': path.resolve('src', 'database', 'migrations')
+};

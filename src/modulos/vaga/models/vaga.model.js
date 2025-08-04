@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../../config/configDB");
 
 const VagaEstacionamento = sequelize.define(
-  "VagaEstacionamento",
+  "Vaga",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -27,9 +27,10 @@ const VagaEstacionamento = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true, // Nulo se vaga estiver livre
       references: {
-        model: "veiculos", //tabela de veículos
+        model: "veiculo", //tabela de veículo
         key: "id",
       },
+      onUpdate:"CASCADE"
     },
     horario_entrada: {
       type: DataTypes.TIME,
@@ -49,7 +50,7 @@ const VagaEstacionamento = sequelize.define(
     },
   },
   {
-    tableName: "vaga_estacionamento",
+    tableName: "vaga",
     createdAt: "criado_em",
     updatedAt: "atualizado_em",
   }
